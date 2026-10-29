@@ -23,7 +23,7 @@ export default function DetalleObra({ obra, onCerrar }) {
                 onClick={(evento) => evento.stopPropagation()}
             >
                 <button type="button" className="boton-cerrar" aria-label="Cerrar" onClick={onCerrar}>
-                    <span aria-hidden="true">X</span>
+                    <span aria-hidden="true">✕</span>
                 </button>
                 {obra.imagen
                     ? (<img src={obra.imagen} alt={obra.titulo} />)

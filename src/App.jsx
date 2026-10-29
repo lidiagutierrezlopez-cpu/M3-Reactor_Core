@@ -8,12 +8,14 @@ import { Cargando, MensajeError, SinResultados } from "./components/Mensajes.jsx
 import useFetch from "./hooks/useFetch.js";
 import useLocalStorage from "./hooks/useLocalStorage.js";
 import { construirUrl, adaptarObra } from "./services/api.js";
+import Exposicion from "./components/Exposicion.jsx";
 
 export default function App() {
     const [busqueda, setBusqueda] = useState("");
     const [favoritas, setFavoritas] = useLocalStorage("galeria-obras-favoritas", []);
     const [soloFavoritas, setSoloFavoritas] = useState(false);
     const [idSeleccionado, setIdSeleccionado] = useState(null);
+    const [modoExposicion, setModoExposicion] = useState(false);
 
 
     const { datos, cargando, error } = useFetch(construirUrl(busqueda));
@@ -43,6 +45,14 @@ export default function App() {
         setIdSeleccionado(null);
     }
 
+    function manejarVerExposicion() {
+        setModoExposicion(true);
+    }
+
+    function manejarSalirExposicion() {
+        setModoExposicion(false);
+    }
+
     let contenido;
     if (!soloFavoritas && cargando) {
         contenido = <Cargando />;
@@ -68,12 +78,18 @@ export default function App() {
             <main>
                 <div className="barra">
                     {!soloFavoritas && <Buscador texto={busqueda} onCambio={setBusqueda} />}
-                    <Filtros soloFavoritas={soloFavoritas} onCambiarSoloFavoritas={setSoloFavoritas} />
+                    <Filtros
+                        soloFavoritas={soloFavoritas}
+                        totalFavoritas={totalFavoritas}
+                        onCambiarSoloFavoritas={setSoloFavoritas}
+                        onVerExposicion={manejarVerExposicion}
+                    />
                 </div>
                 {contenido}
             </main>
 
             {obraSeleccionada && <DetalleObra obra={obraSeleccionada} onCerrar={manejarCerrarDetalle} />}
+            {modoExposicion && <Exposicion obras={favoritas} onSalir={manejarSalirExposicion} />}
         </>
     );
 }
