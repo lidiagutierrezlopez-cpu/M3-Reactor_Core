@@ -3,7 +3,7 @@ import TarjetaObra from "./TarjetaObra.jsx";
 export default function Galeria({ obras = [], favoritas = [], onFavorita, onSeleccionar }) {
     return (
         <section className="galeria">
-            {obras.map((obra => (
+            {obras.map((obra) => (
                 <TarjetaObra
                     key={obra.id}
                     obra={obra} 
@@ -11,7 +11,7 @@ export default function Galeria({ obras = [], favoritas = [], onFavorita, onSele
                     onFavorita={onFavorita}
                     onSeleccionar={onSeleccionar}
                 />
-            )))}
+            ))}
         </section>
     );
 }

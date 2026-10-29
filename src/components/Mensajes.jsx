@@ -8,7 +8,7 @@ export function MensajeError({ mensaje = "No se han podido cargar las obras" }) 
 
 export function SinResultados({ soloFavoritas = false, busqueda = "" }) {
     if (soloFavoritas) {
-        return <p>No hay favoritas entre estas obras. Pulsa «Añadir a favoritas» en las que te gusten.</p>;
+        return <p>Todavía no tienes favoritas. Pulsa el 🤍 de las obras que te gusten.</p>;
     }
     return <p>No hay obras para «{busqueda}». Prueba con otra búsqueda.</p>;
 }
