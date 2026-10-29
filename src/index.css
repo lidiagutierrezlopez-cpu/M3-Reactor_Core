@@ -1,0 +1,281 @@
+:root {
+    --color-fondo: #23332e;          /* fondo de la página */
+    --color-texto-fondo: #eef0ec;    /* texto sobre el fondo (cabecera, mensajes) */
+    --color-tarjeta: #f3ecd7;        /* tarjetas, buscador y ventana de detalle */
+    --color-texto: #1f1f1d;          /* texto dentro de las tarjetas */
+    --color-texto-suave: #63665f;    /* autor y fecha */
+    --color-borde: #d6d3cb;          /* bordes de tarjetas y buscador */
+    --color-sin-imagen: #e4e2dc;     /* recuadro de "Sin imagen" */
+    --color-acento: #c29a5b;         /* botones, foco y borde al pasar el ratón */
+    --color-texto-acento: #1f1f1d;   /* texto de los botones */
+    --color-velo: rgb(0 0 0 / 0.6);  /* fondo oscuro detrás del detalle */
+
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--color-fondo);
+    color: var(--color-texto-fondo);
+}
+
+h1,
+h2,
+h3 {
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.barra {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.buscador {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 1.25rem;
+    font: inherit;
+    font-size: 1.05rem;
+    color: var(--color-texto);
+    background: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 999px;
+}
+
+.filtros {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filtros-favoritas {
+    flex: 1;
+    justify-content: space-between;
+}
+
+.filtros h2 {
+    margin: 0;
+}
+
+.boton {
+    padding: 0.7rem 1.2rem;
+    font: inherit;
+    font-weight: 600;
+    color: var(--color-texto-acento);
+    background: var(--color-acento);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.boton:hover {
+    filter: brightness(1.08);
+}
+
+.boton:focus-visible,
+.buscador:focus-visible {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1.5rem;
+}
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--color-texto);
+    background: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.tarjeta:hover {
+    border-color: var(--color-acento);
+}
+
+.tarjeta-marco {
+    position: relative;
+}
+
+.tarjeta-imagen,
+.tarjeta-sin-imagen {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.tarjeta-sin-imagen,
+.detalle-sin-imagen {
+    display: grid;
+    place-items: center;
+    background: var(--color-sin-imagen);
+    color: var(--color-texto-suave);
+}
+
+.tarjeta-info {
+    padding: 0.75rem 1rem 1rem;
+}
+
+.tarjeta-info h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tarjeta-autor,
+.tarjeta-fecha {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.boton-favorita {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.boton-favorita span {
+    display: block;
+    font-size: 1.6rem;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.6));
+    transition: transform 0.15s;
+}
+
+.boton-favorita:hover span {
+    transform: scale(1.15);
+}
+
+.boton-favorita:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.detalle-fondo {
+    position: fixed;
+    inset: 0;
+    background: var(--color-velo);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+}
+
+.detalle {
+    position: relative;
+    width: 100%;
+    max-width: 40rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    color: var(--color-texto);
+    background: var(--color-tarjeta);
+    border-radius: 8px;
+}
+
+.detalle img {
+    display: block;
+    width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+}
+
+.detalle-sin-imagen {
+    aspect-ratio: 4 / 3;
+}
+
+.boton-cerrar {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--color-texto-acento);
+    background: var(--color-acento);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.boton-cerrar:hover {
+    filter: brightness(1.08);
+}
+
+.boton-cerrar:focus-visible {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
+.detalle-descripcion {
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+.detalle-sin-descripcion {
+    font-style: italic;
+    color: var(--color-texto-suave);
+}
+
+.detalle-ficha {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+}
