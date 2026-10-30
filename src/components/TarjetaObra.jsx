@@ -2,7 +2,13 @@ import ImagenObra from "./ImagenObra.jsx";
 
 export default function TarjetaObra({ obra, esFavorita = false, onFavorita = () => {}, onSeleccionar = () => {} }) {
     return (
-        <article className="tarjeta" onClick={() => onSeleccionar(obra.id)}>
+        <article className="tarjeta">
+            <button
+                type="button"
+                className="tarjeta-abrir"
+                aria-label={`Ver la ficha de ${obra.titulo}`}
+                onClick={() => onSeleccionar(obra.id)}
+            />
             <div className="tarjeta-marco">
                 <ImagenObra obra={obra} className="tarjeta-imagen" />
                 <button
@@ -10,10 +16,7 @@ export default function TarjetaObra({ obra, esFavorita = false, onFavorita = () 
                     className="boton-favorita"
                     aria-pressed={esFavorita}
                     aria-label={esFavorita ? "Quitar de favoritas" : "Añadir a favoritas"}
-                    onClick={(evento) => {
-                        evento.stopPropagation();
-                        onFavorita(obra);
-                    }}
+                    onClick={() => onFavorita(obra)}
                 >
                     <span aria-hidden="true">{esFavorita ? "❤️" : "🤍"}</span>
                 </button>

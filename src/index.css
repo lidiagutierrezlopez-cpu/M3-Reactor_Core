@@ -134,6 +134,22 @@ main {
     position: relative;
 }
 
+.tarjeta-abrir {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.tarjeta-abrir:focus-visible {
+    outline: 3px solid var(--color-acento);
+    outline-offset: -3px;
+    border-radius: 8px;
+}
+
 .tarjeta-imagen {
     display: block;
     width: 100%;
@@ -174,6 +190,7 @@ main {
 
 .boton-favorita {
     position: absolute;
+    z-index: 2;
     top: 0.5rem;
     right: 0.5rem;
     padding: 0;
@@ -202,6 +219,7 @@ main {
 
 .detalle-fondo {
     position: fixed;
+    z-index: 10;
     inset: 0;
     background: var(--color-velo);
     display: grid;
