@@ -2,29 +2,38 @@ import { useState, useEffect } from "react";
 
 const SEGUNDOS_POR_OBRA = 5;
 
+function siguiente(actual, total) {
+    return (Math.min(actual, total - 1) + 1) % total;
+}
+
+function anterior(actual, total) {
+    return (Math.min(actual, total - 1) - 1 + total) % total;
+}
+
 export default function Exposicion({ obras = [], onSalir = () => {} }) {
     const [indice, setIndice] = useState(0);
     const [enPausa, setEnPausa] = useState(false);
 
     const total = obras.length;
-    const obraActual = obras[indice];
+    const posicion = Math.min(indice, total - 1)
+    const obraActual = obras[posicion];
 
     useEffect(() => {
         if (enPausa || total < 2) return;
 
         const temporizador = setTimeout(() => {
-            setIndice((indice + 1) % total);
+            setIndice(siguiente(posicion, total));
         }, SEGUNDOS_POR_OBRA * 1000);
 
         return () => clearTimeout(temporizador);
-    }, [enPausa, indice, total]);
+    }, [enPausa, posicion, total]);
 
     useEffect(() => {
         function manejarTecla(evento) {
             if (evento.key === "ArrowRight") {
-                setIndice((actual) => (actual + 1) % total);
+                setIndice((actual) => siguiente(actual, total));
             } else if (evento.key === "ArrowLeft") {
-                setIndice((actual) => (actual - 1 + total) % total);
+                setIndice((actual) => anterior(actual, total));
             } else if (evento.key === "Escape") {
                 onSalir();
             }
@@ -43,11 +52,9 @@ export default function Exposicion({ obras = [], onSalir = () => {} }) {
             </button>
 
             <figure key={obraActual.id} className="exposicion-obra">
-                {obraActual.imagen ? (
-                    <img src={obraActual.imagen} alt={obraActual.titulo} />
-                ) : (
-                    <div className="exposicion-sin-imagen">Sin imagen</div>
-                )}
+                {obraActual.imagen
+                    ? (<img src={obraActual.imagen} alt={obraActual.titulo} />) 
+                    : (<div className="exposicion-sin-imagen">Sin imagen</div>)}
                 <figcaption>
                     <h2>{obraActual.titulo}</h2>
                     <p>{obraActual.autor}, {obraActual.fecha}</p>
@@ -59,22 +66,22 @@ export default function Exposicion({ obras = [], onSalir = () => {} }) {
                     type="button"
                     className="boton"
                     aria-label="Obra anterior"
-                    onClick={() => setIndice((actual) => (actual - 1 + total) % total)}
+                    onClick={() => setIndice((actual) => anterior(actual, total))}
                 >
                     ←
                 </button>
-                <button type="button" className="boton" onClick={() => setEnPausa((anterior) => !anterior)}>
+                <button type="button" className="boton" onClick={() => setEnPausa((pausa) => !pausa)}>
                     {enPausa ? "▶ Reanudar" : "⏸ Pausa"}
                 </button>
                 <button
                     type="button"
                     className="boton"
                     aria-label="Obra siguiente"
-                    onClick={() => setIndice((actual) => (actual + 1) % total)}
+                    onClick={() => setIndice((actual) => siguiente(actual, total))}
                 >
                     →
                 </button>
-                <span className="exposicion-contador">{indice + 1} de {total}</span>
+                <span className="exposicion-contador">{posicion + 1} de {total}</span>
             </div>
         </div>
     );
