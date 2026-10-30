@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ImagenObra from "./ImagenObra.jsx";
+import useKeyPress from "../hooks/useKeyPress.js";
 
 const SEGUNDOS_POR_OBRA = 5;
 
@@ -29,20 +30,11 @@ export default function Exposicion({ obras = [], onSalir = () => {} }) {
         return () => clearTimeout(temporizador);
     }, [enPausa, posicion, total]);
 
-    useEffect(() => {
-        function manejarTecla(evento) {
-            if (evento.key === "ArrowRight") {
-                setIndice((actual) => siguiente(actual, total));
-            } else if (evento.key === "ArrowLeft") {
-                setIndice((actual) => anterior(actual, total));
-            } else if (evento.key === "Escape") {
-                onSalir();
-            }
-        }
-
-        window.addEventListener("keydown", manejarTecla);
-        return () => window.removeEventListener("keydown", manejarTecla);
-    }, [onSalir, total]);
+    useKeyPress({
+        ArrowRight: () => setIndice((actual) => siguiente(actual, total)),
+        ArrowLeft: () => setIndice((actual) => anterior(actual, total)),
+        Escape: onSalir,
+    });
 
     if (!obraActual) return null;
 

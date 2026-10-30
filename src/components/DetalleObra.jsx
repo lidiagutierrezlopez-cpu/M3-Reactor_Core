@@ -1,17 +1,8 @@
-import { useEffect } from "react";
 import ImagenObra from "./ImagenObra.jsx";
+import useKeyPress from "../hooks/useKeyPress.js";
 
 export default function DetalleObra({ obra, onCerrar }) {
-    useEffect(() => {
-        function manejarTecla(evento) {
-            if (evento.key === "Escape") {
-                onCerrar();
-            }
-        }
-
-        window.addEventListener("keydown", manejarTecla);
-        return () => window.removeEventListener("keydown", manejarTecla);
-    }, [onCerrar]);
+    useKeyPress({ Escape: onCerrar });
 
 
     return (
