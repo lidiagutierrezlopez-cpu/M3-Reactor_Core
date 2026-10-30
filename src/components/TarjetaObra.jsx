@@ -1,12 +1,10 @@
+import ImagenObra from "./ImagenObra.jsx";
+
 export default function TarjetaObra({ obra, esFavorita = false, onFavorita = () => {}, onSeleccionar = () => {} }) {
     return (
         <article className="tarjeta" onClick={() => onSeleccionar(obra.id)}>
             <div className="tarjeta-marco">
-                {obra.imagen ? (
-                    <img src={obra.imagen} alt={obra.titulo} className="tarjeta-imagen" />
-                ) : (
-                    <div className="tarjeta-sin-imagen">Sin imagen</div>
-                )}
+                <ImagenObra obra={obra} className="tarjeta-imagen" />
                 <button
                     type="button"
                     className="boton-favorita"

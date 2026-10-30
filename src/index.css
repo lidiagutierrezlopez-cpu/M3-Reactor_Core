@@ -134,16 +134,14 @@ main {
     position: relative;
 }
 
-.tarjeta-imagen,
-.tarjeta-sin-imagen {
+.tarjeta-imagen {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
 }
 
-.tarjeta-sin-imagen,
-.detalle-sin-imagen {
+.sin-imagen {
     display: grid;
     place-items: center;
     background: var(--color-sin-imagen);
@@ -230,7 +228,7 @@ main {
     object-fit: contain;
 }
 
-.detalle-sin-imagen {
+.detalle-imagen.sin-imagen {
     aspect-ratio: 4 / 3;
 }
 
@@ -316,12 +314,8 @@ main {
     object-fit: contain;
 }
 
-.exposicion-sin-imagen {
-    display: grid;
-    place-items: center;
+.exposicion-imagen.sin-imagen {
     height: 50vh;
-    background: var(--color-sin-imagen);
-    color: var(--color-texto-suave);
 }
 
 .exposicion-obra h2 {

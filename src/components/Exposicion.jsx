@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ImagenObra from "./ImagenObra.jsx";
 
 const SEGUNDOS_POR_OBRA = 5;
 
@@ -52,9 +53,7 @@ export default function Exposicion({ obras = [], onSalir = () => {} }) {
             </button>
 
             <figure key={obraActual.id} className="exposicion-obra">
-                {obraActual.imagen
-                    ? (<img src={obraActual.imagen} alt={obraActual.titulo} />) 
-                    : (<div className="exposicion-sin-imagen">Sin imagen</div>)}
+                <ImagenObra obra={obraActual} className="detalle-imagen" />
                 <figcaption>
                     <h2>{obraActual.titulo}</h2>
                     <p>{obraActual.autor}, {obraActual.fecha}</p>

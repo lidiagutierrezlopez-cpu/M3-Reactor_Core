@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import ImagenObra from "./ImagenObra.jsx";
 
 export default function DetalleObra({ obra, onCerrar }) {
     useEffect(() => {
@@ -25,10 +26,7 @@ export default function DetalleObra({ obra, onCerrar }) {
                 <button type="button" className="boton-cerrar" aria-label="Cerrar" onClick={onCerrar}>
                     <span aria-hidden="true">✕</span>
                 </button>
-                {obra.imagen
-                    ? (<img src={obra.imagen} alt={obra.titulo} />)
-                    : (<div className="detalle-sin-imagen">Sin imagen</div>)
-                }
+                <ImagenObra obra={obra} className="detalle-imagen" />
                 <h2>{obra.titulo}</h2>
                 <p>{obra.autor}</p>
                 <p>{obra.fecha}</p>
