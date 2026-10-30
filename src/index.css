@@ -116,6 +116,7 @@ main {
 }
 
 .tarjeta {
+    position: relative;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -123,7 +124,6 @@ main {
     background: var(--color-tarjeta);
     border: 1px solid var(--color-borde);
     border-radius: 8px;
-    cursor: pointer;
 }
 
 .tarjeta:hover {

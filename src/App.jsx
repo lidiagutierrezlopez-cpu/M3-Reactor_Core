@@ -7,6 +7,7 @@ import DetalleObra from "./components/DetalleObra.jsx";
 import { Cargando, MensajeError, SinResultados } from "./components/Mensajes.jsx";
 import useFetch from "./hooks/useFetch.js";
 import useLocalStorage from "./hooks/useLocalStorage.js";
+import useDebounce from "./hooks/useDebounce.js";
 import { construirUrl, adaptarObra } from "./services/api.js";
 import Exposicion from "./components/Exposicion.jsx";
 
@@ -18,9 +19,9 @@ export default function App() {
     const [modoExposicion, setModoExposicion] = useState(false);
 
 
-    const { datos, cargando, error } = useFetch(construirUrl(busqueda));
+    const busquedaRetrasada = useDebounce(busqueda, 400);
+    const { datos, cargando, error } = useFetch(construirUrl(busquedaRetrasada));
     const obras = datos ? datos.data.map(adaptarObra) : [];
-
 
     const totalFavoritas = favoritas.length;
     const obrasVisibles = soloFavoritas ? favoritas : obras;
@@ -59,7 +60,7 @@ export default function App() {
     } else if (!soloFavoritas && error) {
         contenido = <MensajeError mensaje={`No se han podido cargar las obras (${error})`} />;
     } else if (obrasVisibles.length === 0){
-        contenido = <SinResultados soloFavoritas={soloFavoritas} busqueda={busqueda} />;
+        contenido = <SinResultados soloFavoritas={soloFavoritas} busqueda={busquedaRetrasada} />;
     } else {
         contenido = (
             <Galeria
