@@ -11,7 +11,11 @@ export default function useLocalStorage(clave, valorInicial) {
     });
 
     useEffect(() => {
-        localStorage.setItem(clave, JSON.stringify(valor));
+        try{
+            localStorage.setItem(clave, JSON.stringify(valor));
+        } catch {
+            // Si el navegador no deja guardar sigue funcionando la app
+        }
     }, [clave, valor]);
 
     return [valor, setValor];
