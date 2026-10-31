@@ -7,7 +7,7 @@
 - Navegación con teclado: las tarjetas se recorren con Tab y se abren con Enter.
 - Favoritas: se marcan con el corazón de cada obra, se guardan en el navegador y se conservan al recargar la página, independientemente de la búsqueda.
 - Vista «Mis favoritas», con un botón para entrar y otro para salir que mantiene la búsqueda que había antes.
-- Modo exposición (funcionalidad original): las favoritas a pantalla completa, una a una, pasando solas cada cinco segundos, con pausa, flechas en pantalla y en el teclado, y contador de posición.
+- Modo exposición: las favoritas a pantalla completa, una a una, pasando solas cada cinco segundos, con pausa, flechas en pantalla y en el teclado, y contador de posición.
 - Cuatro hooks personalizados reutilizables: useFetch, para las peticiones a la API, con cancelación de las peticiones antiguas; useLocalStorage, para guardar las favoritas; useDebounce, para esperar a que se deje de escribir antes de buscar; y useKeyPress, para gestionar las teclas.
 - Paleta de colores definida en variables CSS para poder cambiarla desde un solo sitio.
 
@@ -19,13 +19,13 @@
 - Temporizador del modo exposición. Usé setTimeout con la posición actual como dependencia en lugar de setInterval: así, cada vez que cambia la obra, el temporizador anterior se cancela y cada obra se ve el tiempo completo aunque se haya avanzado a mano. Además, la posición se acota durante el render para que nunca quede fuera de la lista si esta cambia.
 
 ## Declaración de uso de IA
-He utilizado Claude como apoyo durante todo el desarrollo. Me generó la plantilla inicial del proyecto (estructura de carpetas y esqueleto de los componentes) y, a partir de ahí, construí la aplicación paso a paso con su ayuda: le pedía cómo implementar cada parte, me proporcionaba el código explicando cada fragmento y yo lo integraba, lo probaba y lo adaptaba. También la usé para entender y corregir errores. Las decisiones sobre qué funcionalidades incluir y cómo debía comportarse la aplicación fueron mías.
+He utilizado Claude como apoyo durante todo el desarrollo. Me generó la plantilla inicial del proyecto (estructura de carpetas y esqueleto de los componentes) y, a partir de ahí, construí la aplicación paso a paso con su ayuda: le pedía cómo implementar cada parte, me proporcionaba partes del código explicando cada fragmento y yo lo integraba, lo probaba y lo adaptaba. También la usé para entender y corregir errores. Las decisiones sobre qué funcionalidades incluir y cómo debía comportarse la aplicación fueron mías.
  
-Tras la primera corrección, apliqué también con su ayuda las mejoras sugeridas por el evaluador (AbortController, useDebounce, useKeyPress, ImagenObra y la accesibilidad de las tarjetas), cada una en su propio commit.
+Tras la primera corrección, apliqué también con su ayuda las mejoras sugeridas por el evaluador (AbortController, useDebounce, useKeyPress, ImagenObra y la accesibilidad de las tarjetas).
  
 Dos ejemplos de cosas en las que pedí ayuda:
  
 - El botón de favoritas no funcionaba y, en su lugar, se abría la ficha de la obra. Con su ayuda vi que en el onClick había una función definida dentro de otra que nunca llegaba a ejecutarse.
 - Las favoritas solo aparecían si la obra estaba en la búsqueda actual. Le pedí ayuda para reestructurar cómo se guardaban, y me explicó por qué convenía guardar las obras completas en lugar de los ids y por qué al comparar objetos hay que hacerlo por id.
 
-El CSS ha sido generado por IA; yo solo he ajustado algunos colores de la paleta.
+El CSS ha sido generado por IA, yo solo he ajustado algunos colores de la paleta.
