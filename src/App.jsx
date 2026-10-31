@@ -2,9 +2,8 @@ import { useState } from "react";
 import Cabecera from "./components/Cabecera.jsx";
 import Buscador from "./components/Buscador.jsx";
 import Filtros from "./components/Filtros.jsx";
-import Galeria from "./components/Galeria.jsx";
 import DetalleObra from "./components/DetalleObra.jsx";
-import { Cargando, MensajeError, SinResultados } from "./components/Mensajes.jsx";
+import Resultados from "./components/Resultados.jsx";
 import useFetch from "./hooks/useFetch.js";
 import useLocalStorage from "./hooks/useLocalStorage.js";
 import useDebounce from "./hooks/useDebounce.js";
@@ -54,24 +53,6 @@ export default function App() {
         setModoExposicion(false);
     }
 
-    let contenido;
-    if (!soloFavoritas && cargando) {
-        contenido = <Cargando />;
-    } else if (!soloFavoritas && error) {
-        contenido = <MensajeError mensaje={`No se han podido cargar las obras (${error})`} />;
-    } else if (obrasVisibles.length === 0){
-        contenido = <SinResultados soloFavoritas={soloFavoritas} busqueda={busquedaRetrasada} />;
-    } else {
-        contenido = (
-            <Galeria
-                obras={obrasVisibles}
-                favoritas={favoritas}
-                onFavorita={manejarFavorita}
-                onSeleccionar={manejarSeleccion}
-            />
-        );
-    }
-
     return (
         <>
             <Cabecera totalFavoritas={totalFavoritas} />
@@ -86,7 +67,16 @@ export default function App() {
                         onVerExposicion={manejarVerExposicion}
                     />
                 </div>
-                {contenido}
+                <Resultados
+                    obras={obrasVisibles}
+                    favoritas={favoritas}
+                    cargando={cargando}
+                    error={error}
+                    soloFavoritas={soloFavoritas}
+                    busqueda={busquedaRetrasada}
+                    onFavorita={manejarFavorita}
+                    onSeleccionar={manejarSeleccion}
+                />
             </main>
 
             {obraSeleccionada && <DetalleObra obra={obraSeleccionada} onCerrar={manejarCerrarDetalle} />}
